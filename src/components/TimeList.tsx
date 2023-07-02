@@ -1,5 +1,6 @@
 import { useStore } from "../RootStore";
 import TimeItem from "./TimeItem";
+import { observer } from "mobx-react-lite";
 
 const TimeList = () => {
   const { times } = useStore();
@@ -13,4 +14,4 @@ const TimeList = () => {
   );
 };
 
-export default TimeList;
+export default observer(TimeList);

@@ -5,9 +5,17 @@ import { Moment } from "moment";
 import moment from "moment/moment";
 
 const periods = ["Anytime", "Morning", "Afternoon", "Evening"] as const;
-const days = generateUpcomingDays();
 
 export type Period = (typeof periods)[number];
+
+const timeRanges: Record<Period, { from: number; to: number }> = {
+  Anytime: { from: 6, to: 21.75 },
+  Morning: { from: 6, to: 11.75 },
+  Afternoon: { from: 12, to: 16.75 },
+  Evening: { from: 15, to: 21.75 },
+};
+
+const days = generateUpcomingDays();
 
 class RootStore {
   // I decided to switch to object based days, so that I can easily access the moment object instead of having to parse it again.
@@ -35,7 +43,7 @@ class RootStore {
     });
 
     this.days = days;
-    this.times = generateTimeSlots(this.currentTime, 6, 22);
+    this.times = this.regenerateTimeSlots();
 
     // Update the current time every minute, so that we can see the time change.
     setInterval(this.updateCurrentTime, 60 * 1000);
@@ -67,11 +75,20 @@ class RootStore {
 
   setSelectedPeriod = (period: Period) => {
     this.selectedPeriod = period;
+    this.times = this.regenerateTimeSlots();
   };
 
   updateCurrentTime = () => {
     this.currentTime = moment();
-    this.times = generateTimeSlots(this.currentTime, 6, 22);
+    this.times = this.regenerateTimeSlots();
+  };
+
+  regenerateTimeSlots = () => {
+    return generateTimeSlots(
+      this.currentTime,
+      timeRanges[this.selectedPeriod].from,
+      timeRanges[this.selectedPeriod].to,
+    );
   };
 }
 

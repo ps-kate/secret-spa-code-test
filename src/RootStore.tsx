@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from "mobx";
 import React from "react";
 import { generateTimeSlots, generateUpcomingDays } from "./utils";
 import { Moment } from "moment";
+import moment from "moment/moment";
 
 const periods = ["Anytime", "Morning", "Afternoon", "Evening"] as const;
 const days = generateUpcomingDays();
@@ -36,7 +37,18 @@ class RootStore {
   }
 
   requestBooking = () => {
-    alert("Booking requested!");
+    if (!this.selectedTime) {
+      return;
+    }
+
+    const formattedDate = this.selectedDay.format("ddd Do MMMM YY");
+    const hours = Math.floor(this.selectedTime);
+    const minutes = Math.round((this.selectedTime - hours) * 60);
+    const formattedTime = moment({ hours, minutes }).format("HH:mm");
+
+    alert(
+      `Your booking has been made for ${formattedTime} on ${formattedDate}. We have sent your request to 5 professionals`,
+    );
   };
 
   setSelectedDay = (day: Moment) => {

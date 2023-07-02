@@ -19,15 +19,26 @@ export function generateUpcomingDays() {
   return days;
 }
 
-export function generateTimeSlots() {
-  const timeSlots = [] as number[];
+type TimeSlot = {
+  moment: Moment;
+  decimal: number;
+  isDisabled: boolean;
+};
 
-  // Once again, since moment is heavy, I'm trying to avoid using it here :-)
-  for (let hour = 6; hour < 22; hour++) {
-    for (let minute = 0; minute < 60; minute += 15) {
-      const decimalTime = hour + minute / 60;
-      timeSlots.push(decimalTime);
-    }
+export function generateTimeSlots(currentTime: Moment, from: number, to: number): TimeSlot[] {
+  const timeSlots: TimeSlot[] = [];
+
+  for (let time = from; time <= to; time += 0.25) {
+    const hour = Math.floor(time);
+    const minute = Math.round((time - hour) * 60);
+    const selectedDateTime = currentTime.clone().hour(hour).minute(minute);
+    const isDisabled = selectedDateTime.diff(currentTime, "hours") < 2;
+
+    timeSlots.push({
+      moment: selectedDateTime,
+      decimal: time,
+      isDisabled: isDisabled,
+    });
   }
 
   return timeSlots;

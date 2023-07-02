@@ -7,7 +7,7 @@ const DayList = () => {
   return (
     <div className="dayList">
       {days.map((day) => (
-        <DayItem day={day} key={day.iso} />
+        <DayItem {...day} key={day.iso} />
       ))}
     </div>
   );

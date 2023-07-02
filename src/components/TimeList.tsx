@@ -2,12 +2,12 @@ import { useStore } from "../RootStore";
 import TimeItem from "./TimeItem";
 
 const TimeList = () => {
-  const rootStore = useStore();
+  const { times } = useStore();
 
   return (
     <div className="timeList">
-      {rootStore.times.map((t) => (
-        <TimeItem time={t} key={t} />
+      {times.map((time) => (
+        <TimeItem {...time} key={time.decimal} />
       ))}
     </div>
   );

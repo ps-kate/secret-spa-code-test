@@ -14,11 +14,12 @@ class RootStore {
   // Moment is heavy. We might not notice this in a such small application,
   // but when it comes we have a lot of days and appointments it might become a problem.
   days: ReturnType<typeof generateUpcomingDays> = [];
-  times: number[] = [];
+  times: ReturnType<typeof generateTimeSlots> = [];
   periods = periods;
   selectedDay: Moment = days[0].moment;
   selectedTime: number | null = null;
   selectedPeriod: Period = periods[0];
+  currentTime: Moment = moment();
 
   constructor() {
     makeObservable(this, {
@@ -30,10 +31,14 @@ class RootStore {
       setSelectedDay: action,
       setSelectedTime: action,
       setSelectedPeriod: action,
+      updateCurrentTime: action,
     });
 
     this.days = days;
-    this.times = generateTimeSlots();
+    this.times = generateTimeSlots(this.currentTime, 6, 22);
+
+    // Update the current time every minute, so that we can see the time change.
+    setInterval(this.updateCurrentTime, 60 * 1000);
   }
 
   requestBooking = () => {
@@ -62,6 +67,11 @@ class RootStore {
 
   setSelectedPeriod = (period: Period) => {
     this.selectedPeriod = period;
+  };
+
+  updateCurrentTime = () => {
+    this.currentTime = moment();
+    this.times = generateTimeSlots(this.currentTime, 6, 22);
   };
 }
 

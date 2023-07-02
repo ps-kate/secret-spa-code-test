@@ -1,0 +1,125 @@
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.app {
+  width: 376px;
+  height: 700px;
+  border: 10px solid #3e3e3e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.timeList {
+  margin-top: 80px;
+  height: 540px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow: auto;
+}
+
+.timeItem {
+  width: 25%;
+  height: 60px;
+  border: 1px solid #dcdcdc;
+  background: white;
+  cursor: pointer;
+}
+
+.timeItem:hover {
+  background-color: #dcdcdc;
+}
+
+.dayList {
+  position: fixed;
+  width: 376px;
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+  height: 60px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  z-index: 10;
+}
+
+.dayItem {
+  width: 90px;
+  height: 60px;
+  border: 1px solid #dcdcdc;
+  background: white;
+  cursor: pointer;
+}
+
+.dayItem:hover {
+  background-color: #dcdcdc;
+}
+
+.periodSelector {
+  position: fixed;
+  margin-top: 60px;
+  width: 376px;
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+  height: 20px;
+  white-space: nowrap;
+  overflow: auto;
+  box-shadow: 0 2px 10px #afafafad;
+  justify-content: center;
+}
+
+.periodItem {
+  border: none;
+  background: none;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.periodItem:hover {
+  background-color: #dcdcdc;
+}
+
+.footer {
+  height: 80px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 -2px 10px #afafafad;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0;
+  line-height: 22px;
+}
+
+.bookButton {
+  border: 0;
+  background: #5e61ca;
+  padding: 16px 30px;
+  border-radius: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.bookButton:hover {
+  opacity: 0.8;
+}
+
+.selected {
+  background: #ffc1fa !important;
+}
+
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

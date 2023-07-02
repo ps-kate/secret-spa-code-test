@@ -1,6 +1,6 @@
 import { makeObservable, observable } from "mobx";
 import React from "react";
-import { generateUpcomingDays } from "./utils";
+import { generateTimeSlots, generateUpcomingDays } from "./utils";
 
 class RootStore {
   // I decided to switch to object based days, so that I can easily access the moment object instead of having to parse it again.
@@ -16,8 +16,8 @@ class RootStore {
       times: observable,
     });
 
-    this.times = [6, 6.25, 6.5, 6.75, 7, 7.25, 7.5, 7.75, 8, 8.25, 8.5, 8.75];
     this.days = generateUpcomingDays();
+    this.times = generateTimeSlots();
   }
 
   requestBooking = () => {

@@ -18,3 +18,17 @@ export function generateUpcomingDays() {
 
   return days;
 }
+
+export function generateTimeSlots() {
+  const timeSlots = [] as number[];
+
+  // Once again, since moment is heavy, I'm trying to avoid using it here :-)
+  for (let hour = 6; hour < 22; hour++) {
+    for (let minute = 0; minute < 60; minute += 15) {
+      const decimalTime = hour + minute / 60;
+      timeSlots.push(decimalTime);
+    }
+  }
+
+  return timeSlots;
+}

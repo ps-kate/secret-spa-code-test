@@ -1,4 +1,4 @@
-import { useStore } from "../App";
+import { useStore } from "../RootStore";
 import PeriodItem from "./PeriodItem";
 
 const PeriodSelector = () => {

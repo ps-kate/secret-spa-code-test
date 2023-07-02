@@ -1,4 +1,4 @@
-import { useStore } from "../App";
+import { useStore } from "../RootStore";
 import TimeItem from "./TimeItem";
 
 const TimeList = () => {

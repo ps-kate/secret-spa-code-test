@@ -4,6 +4,7 @@ import { generateTimeSlots, generateUpcomingDays } from "./utils";
 import { Moment } from "moment";
 
 const periods = ["Anytime", "Morning", "Afternoon", "Evening"] as const;
+const days = generateUpcomingDays();
 
 export type Period = (typeof periods)[number];
 
@@ -14,9 +15,9 @@ class RootStore {
   days: ReturnType<typeof generateUpcomingDays> = [];
   times: number[] = [];
   periods = periods;
-  selectedDay: Moment | null = null;
+  selectedDay: Moment = days[0].moment;
   selectedTime: number | null = null;
-  selectedPeriod: Period = "Anytime";
+  selectedPeriod: Period = periods[0];
 
   constructor() {
     makeObservable(this, {
@@ -30,7 +31,7 @@ class RootStore {
       setSelectedPeriod: action,
     });
 
-    this.days = generateUpcomingDays();
+    this.days = days;
     this.times = generateTimeSlots();
   }
 

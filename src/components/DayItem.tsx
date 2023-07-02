@@ -18,7 +18,7 @@ const DayItem = ({ day }: Props) => {
 
   const classNames = useMemo(
     () =>
-      ["dayItem", selectedDay?.toISOString() === day.moment.toISOString() ? "selected" : ""].join(
+      ["dayItem", selectedDay.toISOString() === day.moment.toISOString() ? "selected" : ""].join(
         " ",
       ),
     [selectedDay, day],

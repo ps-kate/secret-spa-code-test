@@ -27,7 +27,7 @@ const Footer = () => {
         </p>
         <p>0 professionals available</p>
       </div>
-      <button className="bookButton" onClick={requestBooking}>
+      <button className="bookButton" onClick={requestBooking} disabled={!selectedTime}>
         Book Now
       </button>
     </div>

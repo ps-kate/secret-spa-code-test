@@ -1,6 +1,5 @@
 import { useStore } from "../RootStore";
 import DayItem from "./DayItem";
-import moment from "moment";
 import { useMemo } from "react";
 
 const DayList = () => {
@@ -8,7 +7,7 @@ const DayList = () => {
 
   // it's better to have this memoized, so that it doesn't recompute on every render. Moment is a bit heavy.
   const days = useMemo(
-    () => rootStore.days.map((d) => moment(d, moment.HTML5_FMT.DATE).format("MMM Do YYYY")),
+    () => rootStore.days.map(({ moment }) => moment.format("MMM Do YYYY")),
     [rootStore.days],
   );
 

@@ -1,8 +1,12 @@
 import { makeObservable, observable } from "mobx";
 import React from "react";
+import { generateUpcomingDays } from "./utils";
 
 class RootStore {
-  days: string[] = [];
+  // I decided to switch to object based days, so that I can easily access the moment object instead of having to parse it again.
+  // Moment is heavy. We might not notice this in a such small application,
+  // but when it comes we have a lot of days and appointments it might become a problem.
+  days: ReturnType<typeof generateUpcomingDays> = [];
   times: number[] = [];
   periods = ["Anytime", "Morning", "Afternoon", "Evening"];
 
@@ -13,7 +17,7 @@ class RootStore {
     });
 
     this.times = [6, 6.25, 6.5, 6.75, 7, 7.25, 7.5, 7.75, 8, 8.25, 8.5, 8.75];
-    this.days = ["2021-01-01", "2021-01-02", "2021-01-03", "2021-01-04", "2021-01-05"];
+    this.days = generateUpcomingDays();
   }
 
   requestBooking = () => {

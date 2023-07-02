@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, autorun } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import React from "react";
 import { generateTimeSlots, generateUpcomingDays } from "./utils";
 import { Moment } from "moment";

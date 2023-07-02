@@ -1,6 +1,11 @@
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import React from "react";
 import { generateTimeSlots, generateUpcomingDays } from "./utils";
+import { Moment } from "moment";
+
+const periods = ["Anytime", "Morning", "Afternoon", "Evening"] as const;
+
+export type Period = (typeof periods)[number];
 
 class RootStore {
   // I decided to switch to object based days, so that I can easily access the moment object instead of having to parse it again.
@@ -8,12 +13,21 @@ class RootStore {
   // but when it comes we have a lot of days and appointments it might become a problem.
   days: ReturnType<typeof generateUpcomingDays> = [];
   times: number[] = [];
-  periods = ["Anytime", "Morning", "Afternoon", "Evening"];
+  periods = periods;
+  selectedDay: Moment | null = null;
+  selectedTime: number | null = null;
+  selectedPeriod: Period = "Anytime";
 
   constructor() {
     makeObservable(this, {
       days: observable,
       times: observable,
+      selectedDay: observable,
+      selectedTime: observable,
+      selectedPeriod: observable,
+      setSelectedDay: action,
+      setSelectedTime: action,
+      setSelectedPeriod: action,
     });
 
     this.days = generateUpcomingDays();
@@ -22,6 +36,18 @@ class RootStore {
 
   requestBooking = () => {
     alert("Booking requested!");
+  };
+
+  setSelectedDay = (day: Moment) => {
+    this.selectedDay = day;
+  };
+
+  setSelectedTime = (time: number) => {
+    this.selectedTime = time;
+  };
+
+  setSelectedPeriod = (period: Period) => {
+    this.selectedPeriod = period;
   };
 }
 

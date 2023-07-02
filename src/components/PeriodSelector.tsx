@@ -2,11 +2,11 @@ import { useStore } from "../RootStore";
 import PeriodItem from "./PeriodItem";
 
 const PeriodSelector = () => {
-  const rootStore = useStore();
+  const { periods } = useStore();
 
   return (
     <div className="periodSelector">
-      {rootStore.periods.map((p) => (
+      {periods.map((p) => (
         <PeriodItem period={p} key={p} />
       ))}
     </div>
